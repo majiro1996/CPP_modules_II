@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:49:21 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/01 17:08:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/02 20:41:11 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ void Bureaucrat::decrementGrade(void)
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-    return ("Grade is too high");
+    return ("Cannot have a grade higher than 1");
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-    return ("Grade is too low");
+    return ("Cannot have a grade lower than 150");
 }
 
 std::ostream &operator<<(std::ostream &o, Bureaucrat const &source)

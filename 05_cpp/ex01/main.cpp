@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:38 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/03 14:14:24 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:12:40 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ int main(void)
     std::cout << f2 << std::endl;
 
     b2.signForm(f1);
+    std::cout << f1 << std::endl;
     b1.signForm(f1);
+    std::cout << f1 << std::endl;
     b2.signForm(f2);
+    std::cout << f2 << std::endl;
 
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 22:41:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/02 23:02:38 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:15:38 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,16 @@ void    Form::beSigned(Bureaucrat const &bur)
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-    return ("Grade too high for this form.");
+    return ("too high of a grade.");
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-    return ("Grade too low for this form.");
+    return ("too low of a grade.");
 }
 
 std::ostream &operator<<(std::ostream &o, Form const &source)
 {
-    o << "Form: " << source.getName() << ", signed: " << source.getSigned() << ", grade to sign: " << source.getGradeToSign() << ", grade to exec: " << source.getGradeToExec() << std::endl;
+    o << "Form: " << source.getName() << ", signed: " << source.getSigned() << ", grade to sign: " << source.getGradeToSign() << ", grade to exec: " << source.getGradeToExec();
     return (o);
 }

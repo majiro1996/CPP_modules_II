@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:08:04 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/03 21:13:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:57:26 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 class PresidentialPardonForm : public AForm
 {
     private:
+        std::string                _target;
         static int const           _signGrade = 25;
         static int const           _execGrade = 5;
-        std::string                _target;
         
     public:
         PresidentialPardonForm(void);

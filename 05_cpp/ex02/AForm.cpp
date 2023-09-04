@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 22:41:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/03 18:04:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:10:02 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ const char* AForm::GradeTooHighException::what() const throw()
 const char* AForm::GradeTooLowException::what() const throw()
 {
     return ("too low of a grade.");
+}
+
+const char* AForm::NotSignedException::what() const throw()
+{
+    return ("not signed.");
 }
 
 std::ostream &operator<<(std::ostream &o, AForm const &source)

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 09:56:15 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/04 11:13:24 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:05:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,18 @@ std::string const	ShrubberyCreationForm::getTarget(void) const
 
 void				ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (executor.getGrade() > this->getExecGrade())
+	if (executor.getGrade() > this->getGradeToExec())
 		throw AForm::GradeTooLowException();
 
-
 	std::ofstream ofs(this->_target + "_shrubbery");
-	ofs << "      /\\      " << std::endl;
-	ofs << "     /\\*\\     " << std::endl;
-	ofs << "    /\\O\\*\\    " << std::endl;
-	ofs << "   /*/\\/\\/\\   " << std::endl;
-	ofs << "  /\\O\\/\\*\\/\\  " << std::endl;
-	ofs << " /\\*\\/\\*\\/\\/\\ " << std::endl;
-	ofs << "/\\O\\/\\/*/\\/O/\\" << std::endl;
-	ofs << "      ||      " << std::endl;
-	ofs << "      ||      " << std::endl;
-	ofs << "      ||      " << std::endl;
-	ofs << std::endl;
-
+	ofs << "      ###" << std::endl;
+	ofs << "     #o###" << std::endl;
+	ofs << "   #####o###" << std::endl;
+	ofs << "  #o#\\#|#/###" << std::endl;
+	ofs << "   ###\\|/#o#" << std::endl;
+	ofs << "    # }|{  #" << std::endl;
+	ofs << "      }|{  " << std::endl;
+	ofs.close();
+	
+	return ;
 }

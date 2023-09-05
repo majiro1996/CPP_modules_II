@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:12:50 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/04 10:10:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/05 09:32:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ std::string const   PresidentialPardonForm::getTarget(void) const
 
 void                PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {   
-    if (executor.getGrade() > this->getExecGrade())
+    if (executor.getGrade() > this->getGradeToExec())
         throw AForm::GradeTooLowException();
     if (this->getSigned() == false)
         throw AForm::NotSignedException();

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreatioForm.cpp                           :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 09:56:15 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/05 13:05:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:20:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ void				ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	if (executor.getGrade() > this->getGradeToExec())
 		throw AForm::GradeTooLowException();
 
-	std::ofstream ofs(this->_target + "_shrubbery");
+	std::ofstream ofs;
+	std::string filename = this->getTarget();
+	filename.append("_shrubbery");
+	ofs.open(filename.c_str());
+	
 	ofs << "      ###" << std::endl;
 	ofs << "     #o###" << std::endl;
 	ofs << "   #####o###" << std::endl;
@@ -65,6 +69,16 @@ void				ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	ofs << "   ###\\|/#o#" << std::endl;
 	ofs << "    # }|{  #" << std::endl;
 	ofs << "      }|{  " << std::endl;
+	ofs << "      }|{  " << std::endl;
+	ofs << std::endl;
+	ofs << "      ###" << std::endl;
+	ofs << "     #o###" << std::endl;
+	ofs << "   #####o###" << std::endl;
+	ofs << "  #o#\\#|#/###" << std::endl;
+	ofs << "   ###\\|/#o#" << std::endl;
+	ofs << "    # }|{  #" << std::endl;
+	ofs << "      }|{  " << std::endl;
+
 	ofs.close();
 	
 	return ;

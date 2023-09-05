@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:48:48 by manujime          #+#    #+#              #
-#    Updated: 2023/09/03 18:06:46 by manujime         ###   ########.fr        #
+#    Updated: 2023/09/05 20:10:43 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ END			=		\033[0m
 SRC =	main.cpp \
 		Bureaucrat.cpp \
 		AForm.cpp \
+		ShrubberyCreationForm.cpp \
+		RobotomyRequestForm.cpp \
+		PresidentialPardonForm.cpp
 
 
 OBJ = $(SRC:.cpp=.o)

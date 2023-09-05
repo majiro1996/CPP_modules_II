@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 10:51:44 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/05 11:14:33 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:22:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ROBOTOMYREQUESTFORM_H
 
 # include "AForm.hpp"
+# include <cstdlib> // std::rand()
 
 class RobotomyRequestForm : public AForm
 {

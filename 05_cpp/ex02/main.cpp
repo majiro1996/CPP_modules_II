@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:38 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/05 20:10:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:32:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,23 @@ int main(void)
     Bureaucrat	b1("B1", 1);
     Bureaucrat	b2("B2", 150);
 
-    PresidentialPardonForm	ppf("PPF");
-    RobotomyRequestForm		rrf("RRF");
-    ShrubberyCreationForm	scf("SCF");
+    PresidentialPardonForm	presi("presi");
+    RobotomyRequestForm		robo("robo");
+    ShrubberyCreationForm	shrub("shrub");
 
     std::cout << b1 << std::endl;
     std::cout << b2 << std::endl;
 
-    std::cout << ppf << std::endl;
-    std::cout << rrf << std::endl;
-    std::cout << scf << std::endl;
+    std::cout << presi << std::endl;
+    std::cout << robo << std::endl;
+    std::cout << shrub << std::endl;
+
+    b1.signForm(presi);
+    b1.signForm(robo);
+    b1.signForm(shrub);
+
+    b1.executeForm(presi);
+    b1.executeForm(robo);
+    b1.executeForm(shrub);
     return (0);
 }

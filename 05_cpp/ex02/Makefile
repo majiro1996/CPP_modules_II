@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:48:48 by manujime          #+#    #+#              #
-#    Updated: 2023/09/05 20:10:43 by manujime         ###   ########.fr        #
+#    Updated: 2023/09/06 09:08:59 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@echo "$(RED)$(NAME) deleted$(END)"
+	@rm -rf *_shrubbery
 
 re: fclean all
 

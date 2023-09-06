@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:19:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/05 15:27:06 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:13:12 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ std::string const   RobotomyRequestForm::getTarget(void) const
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
+    srand(time(NULL));
     if (executor.getGrade() > this->getGradeToExec())
         throw AForm::GradeTooLowException();
-    int rand = std::rand() % 2;
-    if (rand == 0)
+    int rand = std::rand() % 2 + 1;
+    if (rand == 1)
         std::cout << _target << " has been robotomized successfully." << std::endl;
     else
         std::cout << _target << " has NOT been robotomized successfully." << std::endl;

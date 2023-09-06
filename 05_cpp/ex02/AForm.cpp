@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 22:41:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/04 10:10:02 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:21:54 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ const char* AForm::NotSignedException::what() const throw()
 
 std::ostream &operator<<(std::ostream &o, AForm const &source)
 {
-    o << "AForm: " << source.getName() << ", signed: " << source.getSigned() << ", grade to sign: " << source.getGradeToSign() << ", grade to exec: " << source.getGradeToExec();
+    o << "Form: " << source.getName() << ", signed: " << source.getSigned() << ", grade to sign: " << source.getGradeToSign() << ", grade to exec: " << source.getGradeToExec();
     return (o);
 }

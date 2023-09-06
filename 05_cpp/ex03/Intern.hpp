@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:38:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 11:06:41 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:32:54 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@
 
 class Intern
 {
-	private:
-		AForm   *makeShrubberyCreationForm(std::string target);
-		AForm   *makeRobotomyRequestForm(std::string target);
-		AForm   *makePresidentialPardonForm(std::string target);
-
 	public:
 		Intern(void);
 		Intern(Intern const &source);
@@ -34,6 +29,12 @@ class Intern
 		Intern 	&operator=(Intern const &source);
 
 		AForm	*makeForm(std::string name, std::string target);
+		
+		class   NotAFormException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
 #endif

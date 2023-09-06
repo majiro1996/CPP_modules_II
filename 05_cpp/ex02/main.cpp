@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:38 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 10:20:33 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:22:14 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp" 
 
-
-void ft_leaks()
-{
-    system("leaks Bureaucracy");
-}
 
 void formTest(AForm &f, int gradeA, int gradeB)
 {
@@ -43,7 +38,6 @@ void formTest(AForm &f, int gradeA, int gradeB)
 
 int main(void)
 {
-    atexit(ft_leaks);
     PresidentialPardonForm	presi("presi");
     PresidentialPardonForm  presi2(presi);
     RobotomyRequestForm		robo("robo");

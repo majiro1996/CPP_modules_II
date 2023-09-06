@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 22:41:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 08:21:54 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:24:36 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ const char* AForm::GradeTooLowException::what() const throw()
 const char* AForm::NotSignedException::what() const throw()
 {
     return ("not signed.");
+}
+
+const char* AForm::AlreadySignedException::what() const throw()
+{
+    return ("already signed.");
 }
 
 std::ostream &operator<<(std::ostream &o, AForm const &source)

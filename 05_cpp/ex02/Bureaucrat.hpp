@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:44:10 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/03 20:02:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:21:23 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ class Bureaucrat
 
         void                incrementGrade(void);
         void                decrementGrade(void);
+
+        void                setGrade(int grade);
 
         void                signForm(AForm &form);
         void                executeForm(AForm const &form);

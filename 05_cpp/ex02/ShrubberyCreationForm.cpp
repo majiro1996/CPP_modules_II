@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 09:56:15 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/05 20:20:46 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:19:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void				ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
 	if (executor.getGrade() > this->getGradeToExec())
 		throw AForm::GradeTooLowException();
-
+	if (this->getSigned() == false)
+		throw AForm::NotSignedException();
 	std::ofstream ofs;
 	std::string filename = this->getTarget();
 	filename.append("_shrubbery");

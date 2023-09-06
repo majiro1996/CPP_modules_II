@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:49:21 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/03 21:12:32 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:22:20 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,17 @@ void Bureaucrat::executeForm(AForm const &form)
     {
         std::cout << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
     }
+    return ;
+}
+
+void Bureaucrat::setGrade(int grade)
+{
+    if (grade < Bureaucrat::maxGrade)
+        throw Bureaucrat::GradeTooHighException();
+    else if (grade > Bureaucrat::minGrade)
+        throw Bureaucrat::GradeTooLowException();
+    else
+        this->_grade = grade;
+    std::cout << this->getName() << " grade has been set to " << this->getGrade() << std::endl;
     return ;
 }

@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:48:48 by manujime          #+#    #+#              #
-#    Updated: 2023/09/06 09:08:59 by manujime         ###   ########.fr        #
+#    Updated: 2023/09/06 10:11:26 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC =	main.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
-NAME = Bureocracy
+NAME = Bureaucracy
 
 all: $(NAME)
 	

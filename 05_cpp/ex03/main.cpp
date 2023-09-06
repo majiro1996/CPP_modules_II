@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:38 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 13:26:16 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:55:37 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int main(void)
     AForm*  presi = someRandomIntern.makeForm("presidential pardon", "Bender");
     AForm*  robo = someRandomIntern.makeForm("robotomy request", "Bender");
     AForm*  shrub = someRandomIntern.makeForm("shrubbery creation", "Bender");
+
+    std::cout << std::endl;
 
     formTest(*shrub, 137,145);
     formTest(*robo, 45, 72);

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:38 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 15:14:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:43:03 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void formTest(AForm &f, int gradeA, int gradeB)
 int main(void)
 {
     Intern  someRandomIntern;
-
+    
     AForm   *presi = someRandomIntern.makeForm("presidential pardon", "Bender");
     AForm   *robo = someRandomIntern.makeForm("robotomy request", "Bender");
     AForm   *shrub = someRandomIntern.makeForm("shrubbery creation", "Bender");

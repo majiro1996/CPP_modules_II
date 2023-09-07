@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 10:38:54 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/06 20:33:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:44:32 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ const char* Intern::NotAFormException::what() const throw()
 	return ("Not a form");
 }
 
-AForm   *Intern::makeForm(std::string name, std::string target)
+static int formPos(std::string name)
 {
-	AForm  *form;
-
 	std::string names[3] = 
 	{
 		"shrubbery creation",
@@ -65,27 +63,37 @@ AForm   *Intern::makeForm(std::string name, std::string target)
 		"presidential pardon"
 	};
 
-	AForm* (*funcs[3])(std::string) = 
-	{
-		makeShrubberyCreationForm,
-		makeRobotomyRequestForm,
-		makePresidentialPardonForm
-	};
-
 	for (int i = 0; i < 3; i++)
 	{
 		if (name == names[i])
-		{
-			form = (*funcs[i])(target);
-			std::cout << "Intern creates " << form->getName() << std::endl;
-			return (form);
-		}
+			return (i);
 	}
 
-	std::cout << "Choose from: " << std::endl;
-	for (int j = 0; j < 3; j++)
+	throw Intern::NotAFormException();
+}
+
+AForm   *Intern::makeForm(std::string name, std::string target)
+{
+	AForm  *form;
+
+	try 
 	{
-		std::cout << " - " << names[j] << std::endl;
+		AForm* (*funcs[3])(std::string) = 
+		{
+			makeShrubberyCreationForm,
+			makeRobotomyRequestForm,
+			makePresidentialPardonForm
+		};
+		
+		formPos(name);
+		form = funcs[formPos(name)](target);
+		std::cout << "Intern creates " << form->getName() << " for " << target << std::endl;
+		return (form);
 	}
-	return (NULL);
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+		return (NULL);
+	}
+
 }

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/11 13:33:47 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:02:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ bool	ScalarConverter::_isInt(std::string str)
 	return (true);
 }
 
-//Q:Does stof() handle -inff, +inff, nanf, -inf, +inf, nan?
-//A:Yes, it does. It will throw an exception if the string is not the correct type
-
 bool	ScalarConverter::_isFloat(std::string str)
 {
 	try
@@ -64,5 +61,18 @@ bool	ScalarConverter::_isDouble(std::string str)
 	return (true);
 }
 
-//Q: how do I handle -inff, +inff, nanf, -inf, +inf, nan?
-//A: use std::isinf() and std::isnan() to check if the float is infinite or nan
+
+
+void ScalarConverter::_convert(std::string str)
+{
+	if (_isChar(str))
+		_convertChar(str);
+	else if (_isInt(str))
+		_convertInt(str);
+	else if (_isFloat(str))
+		_convertFloat(str);
+	else if (_isDouble(str))
+		_convertDouble(str);
+	else
+		std::cout << "impossible" << std::endl;
+}

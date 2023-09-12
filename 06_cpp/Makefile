@@ -6,12 +6,12 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/10 15:48:48 by manujime          #+#    #+#              #
-#    Updated: 2023/09/11 09:43:48 by manujime         ###   ########.fr        #
+#    Updated: 2023/09/12 09:48:39 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -g -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 GREEN		=		\033[0;32m
 RED			=		\033[0;31m
@@ -19,7 +19,6 @@ END			=		\033[0m
 
 SRC =	main.cpp \
 		Converter.cpp \
-
 
 OBJ = $(SRC:.cpp=.o)
 

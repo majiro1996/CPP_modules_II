@@ -6,15 +6,91 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/12 15:37:01 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:42:57 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Converter.hpp"
 
+static bool isPseudoDouble(std::string str)
+{
+	if (str == "nan" || str == "inf" || str == "+inf" || str == "-inf")
+		return (true);
+	return (false);
+}
+
+static bool isPseudoFloat(std::string str)
+{
+	if (str == "nanf" || str == "inff" || str == "+inff" || str == "-inff")
+		return (true);
+	return (false);
+}
+
 int  ScalarConverter::myStoi(std::string str)
 {
+	int result = 0;
+	int sign = 1;
+	std::string::iterator it = str.begin(); 
 
+	if (*it == '-')
+	{
+		sign = -1;
+		it++;
+	}
+	while (it != str.end())
+	{
+		if (!isdigit(*it))
+			throw ScalarConverter::BadArgumentException();
+		result = result * 10 + (*it - '0');
+		it++;
+	}
+	if (result * sign < std::numeric_limits<int>::min() ||
+		result * sign > std::numeric_limits<int>::max())
+		throw ScalarConverter::OutOfRangeException();
+	return (result * sign);
+}
+
+int  ScalarConverter::myStof(std::string str)
+{
+	float result = 0;
+	float sign = 1;
+	std::string::iterator it = str.begin();
+
+	if (*it == '-')
+	{
+		sign = -1;
+		it++;   
+	}
+
+	while (isdigit(*it))
+	{
+		result = result * 10 + (*it - '0');
+		it++;
+	}
+	if (*it == '.')
+	{
+		it++;
+		float dec = 1;
+		while (isdigit(*it))
+		{
+			dec /= 10;
+			result += dec * (*it - '0');
+			it++; 
+		}
+	}
+	if (result * sign < std::numeric_limits<float>::min() ||
+		result * sign > std::numeric_limits<float>::max())
+		throw ScalarConverter::OutOfRangeException();
+	return (result * sign);
+}
+
+int  ScalarConverter::myStod(std::string str)
+{
+	double n;
+	std::stringstream ss(str);
+
+	ss >> n;
+	return (n);
 }
 
 bool	ScalarConverter::_isChar(std::string str)
@@ -26,25 +102,35 @@ bool	ScalarConverter::_isChar(std::string str)
 
 bool	ScalarConverter::_isInt(std::string str)
 {
-	const char	*ptr = str.c_str();
-	char		*endptr;
-	std::strtol(ptr, &endptr, 10);
-
-	if (*endptr != '\0')
+	try
+	{
+		ScalarConverter::myStoi(str);
+	}
+	catch (std::exception &e)
+	{
 		return (false);
+	}
 	return (true);
 }
 
 bool	ScalarConverter::_isFloat(std::string str)
 {
-	
+	try
+	{
+		ScalarConverter::myStof(str);
+	}
+	catch (std::exception &e)
+	{
+		return (false);
+	}
+	return (true);
 }
 
 bool	ScalarConverter::_isDouble(std::string str)
 {
 	try
 	{
-		std::stod(str);
+		ScalarConverter::myStod(str);
 	}
 	catch (std::exception &e)
 	{
@@ -108,6 +194,7 @@ void	ScalarConverter::_convertDouble(std::string str)
 
 void ScalarConverter::convert(std::string str)
 {
+	
 	if (_isChar(str))
 		_convertChar(str);
 	else if (_isInt(str))

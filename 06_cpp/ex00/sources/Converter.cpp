@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/18 16:45:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:18:07 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,14 @@ static bool isChar(std::string str)
 
 static bool isInt(std::string str)
 {
-	try
+	if (str.at(0) == '-' || str.at(0) == '+' || isdigit(str.at(0)))
 	{
-		myStoi(str);
+		for (size_t i = 1; i < str.length(); i++)
+		{
+			if (!isdigit(str.at(i)))
+				return (false);
+		}
 	}
-	catch (std::exception &e)
-	{
-		return (false);
-	}
-	return (true);
 }
 
 static bool isFloat(std::string str)

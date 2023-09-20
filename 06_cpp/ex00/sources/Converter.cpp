@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/18 18:18:07 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:15:40 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool isPseudoFloat(std::string str)
 	return (false);
 }
 
-static int myStoi(std::string str)
+static int myStoi(std::string &str)
 {
 	int num;
 	std::stringstream ss(str);
@@ -62,6 +62,8 @@ static bool isChar(std::string str)
 
 static bool isInt(std::string str)
 {
+	if (isPseudoFloat(str) || isPseudoDouble(str))
+		return (false);
 	if (str.at(0) == '-' || str.at(0) == '+' || isdigit(str.at(0)))
 	{
 		for (size_t i = 1; i < str.length(); i++)
@@ -70,18 +72,32 @@ static bool isInt(std::string str)
 				return (false);
 		}
 	}
+	return (true);
 }
 
 static bool isFloat(std::string str)
 {
-	try
-	{
-		myStof(str);
-	}
-	catch (std::exception &e)
-	{
+	int pCount = 0;
+	int fCount = 0;
+
+	if (isPseudoFloat(str))
+		return (true);
+	if (str.at(str.length() - 1) != 'f')
 		return (false);
+	if (str.at(0) == '-' || str.at(0) == '+' || isdigit(str.at(0)))
+	{
+		for (size_t i = 1; i < str.length(); i++)
+		{
+			if (str.at(i) == '.')
+				pCount++;
+			if (str.at(i) == 'f')
+				fCount++;
+			else if (!isdigit(str.at(i)))
+				return (false);
+		}
 	}
+	if (pCount != 1 || fCount != 1)
+		return (false);
 	return (true);
 }
 
@@ -128,13 +144,10 @@ static void _converFloatPL(std::string str)
 	std::cout << "float: " << str << std::endl;
 	float	f = myStof(str);
 
-	if (f < 32 || f > 126)
-		std::cout << "char: Non displayable" << std::endl;
-	else
-		std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-	std::cout << "int: " << static_cast<int>(f) << std::endl;
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "int: impossible" << std::endl;
 	std::cout << "float: " << f << "f" << std::endl;
-	std::cout << "double: " << static_cast<double>(f) << std::endl;
+	std::cout << "double: " << static_cast<double>(f) << ".0" << std::endl;
 }
 
 static void _convertFloat(std::string str)
@@ -144,7 +157,7 @@ static void _convertFloat(std::string str)
 		_converFloatPL(str);
 		return ;
 	}
-
+	
 	std::cout << "float: " << str << std::endl;
 	float	f = myStof(str);
 
@@ -154,7 +167,7 @@ static void _convertFloat(std::string str)
 		std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
 	std::cout << "int: " << static_cast<int>(f) << std::endl;
 	std::cout << "float: " << f << "f" << std::endl;
-	std::cout << "double: " << static_cast<double>(f) << std::endl;
+	std::cout << "double: " << static_cast<double>(f) << ".0" << std::endl;
 }
 
 static void _converDobublePL(std::string str)
@@ -186,8 +199,8 @@ static void _convertDouble(std::string str)
 	else
 		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
 	std::cout << "int: " << static_cast<int>(d) << std::endl;
-	std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-	std::cout << "double: " << d << std::endl;
+	std::cout << "float: " << static_cast<float>(d) << "0.f" << std::endl;
+	std::cout << "double: " << d << ".0" << std::endl;
 }
 
 enum Type
@@ -220,7 +233,7 @@ void ScalarConverter::convert(std::string str)
 			_convertChar(str);
 			break;
 		case _int:
-			_convertInt(str);
+			_convertInt(myStoi(str)); //fix this
 			break;
 		case _float:
 			_convertFloat(str);

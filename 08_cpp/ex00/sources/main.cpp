@@ -6,42 +6,24 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:44:06 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 18:42:00 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/20 09:56:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Easy.hpp"
-#include <vector>
-#include <list>
 
 int	main(void)
 {
     std::vector<int>	v;
     std::list<int>		l;
 
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
-    v.push_back(4);
-
-    l.push_back(1);
-    l.push_back(2);
-    l.push_back(3);
-    l.push_back(4);
+    fillContainer(v, 1, 5);
+    fillContainer(l, 1, 5);
 
     std::cout << "Vector: " << std::endl;
-    std::cout << easyfind(v, 1) << std::endl;
-    std::cout << easyfind(v, 2) << std::endl;
-    std::cout << easyfind(v, 3) << std::endl;
-    std::cout << easyfind(v, 4) << std::endl;
-    std::cout << easyfind(v, 5) << std::endl;
-
+    basicTest(v, 0, 6);
     std::cout << "List: " << std::endl;
-    std::cout << easyfind(l, 1) << std::endl;
-    std::cout << easyfind(l, 2) << std::endl;
-    std::cout << easyfind(l, 3) << std::endl;
-    std::cout << easyfind(l, 4) << std::endl;
-    std::cout << easyfind(l, 5) << std::endl;
+    basicTest(l, 5, 8);
 
     return (0);
 }

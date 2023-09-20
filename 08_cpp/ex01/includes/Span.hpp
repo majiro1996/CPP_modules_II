@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 22:03:19 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:14:42 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ class Span
 
         void    addNumber(int n);
         int     shortestSpan(void);
-        int    longestSpan(void);
+        int     longestSpan(void);
+
+        void    addRange(int start, int end);
+        void    addRandom(int amount);
 };
 
 #endif

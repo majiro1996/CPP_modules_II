@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/28 17:31:36 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:40:22 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ class Span
         int     longestSpan(void);
 
         void    addRandom(int amount);
+        std::list<int>  getArr(void) const;
 };
+
+std::ostream    &operator<<(std::ostream &o, Span const &source);
 
 #endif

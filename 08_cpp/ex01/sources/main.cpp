@@ -6,13 +6,17 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:44:06 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 18:20:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:03:02 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Inc.hpp"
+#include "../includes/Span.hpp"
 
 int	main(void)
 {   
+    Span    sp = Span(5);
+
+    sp.addNumber(5);
+    
     return (0);
 }

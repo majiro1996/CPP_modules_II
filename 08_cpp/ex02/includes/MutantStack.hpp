@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/02 16:13:56 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:20:21 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class MutantStack: public std::stack<T>
 {
 	public:
 		MutantStack(void);
-		MutantStack(MutantStack const &src);
+		MutantStack(MutantStack const &source);
 		~MutantStack(void);
 
 		MutantStack &operator=(MutantStack const &source);
@@ -40,10 +40,10 @@ MutantStack<T>::MutantStack(void)
 }
 
 template<typename T>
-MutantStack<T>::MutantStack(MutantStack const &src)
+MutantStack<T>::MutantStack(MutantStack const &source)
 {
 	std::cout << "MutantStack copy constructor called" << std::endl;
-	*this = src;
+	*this = source;
 	return ;
 }
 

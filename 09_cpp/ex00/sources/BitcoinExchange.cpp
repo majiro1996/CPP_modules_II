@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/02 17:51:31 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:01:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,10 @@ bool	BitcoinExchange::validDate(std::string const &str)
 // a valid rate should be either a float or a positive integer ranged 0-1000
 bool	BitcoinExchange::validValue(std::string const &str)
 {
-	for (int i = 0; i < str.length(); i++)
-	{
-		if (str[i] == '.')
-			continue ;
-		if (str[i] < '0' || str[i] > '9')
-			return (false);
-	}
-	return (true);
+	std::stringstream	ss(str);
+	float				num;
+
+	ss >> num;
 }
 
 // the format should be "date | value"

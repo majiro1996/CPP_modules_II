@@ -6,11 +6,33 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/26 13:49:51 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:06:05 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Converter.hpp"
+
+ScalarConverter::ScalarConverter(void)
+{
+	return ;
+}
+
+ScalarConverter::ScalarConverter(ScalarConverter const &src)
+{
+	*this = src;
+	return ;
+}
+
+ScalarConverter::~ScalarConverter(void)
+{
+	return ;
+}
+
+ScalarConverter &ScalarConverter::operator=(ScalarConverter const &source)
+{
+	(void)source;
+	return (*this);
+}
 
 static bool isPseudoDouble(std::string str)
 {

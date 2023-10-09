@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/04 18:06:05 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:20:41 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,5 +248,4 @@ void ScalarConverter::convert(std::string str)
 			std::cout << "Error: invalid input" << std::endl;
 			break;
 	}
-	//std::cout << getType(str) << std::endl;
 }

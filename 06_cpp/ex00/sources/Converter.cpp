@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/10 14:52:11 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:59:16 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ static void _convertChar(char c)
 
 static void _convertInt(int nbr)
 {
+	if (nbr < 32 || nbr > 126)
+		std::cout << "char: Non displayable" << std::endl;
+	else
 	std::cout << "char: '" << static_cast<char>(nbr) << "'" << std::endl;
 	std::cout << "int: " << nbr << std::endl;
 	std::cout << "float: " << static_cast<float>(nbr) << ".0f" << std::endl;
@@ -211,14 +214,14 @@ static Type getType(const std::string str)
 {
 	if (isPseudoFloat(str) || isPseudoDouble(str))
 		return (_pseudo);
-	if (isChar(str))
-		return (_char);
 	if (isFloat(str))
 		return (_float);
 	if (isDouble(str))
 		return (_double);
 	if (isInt(str))
 		return (_int);
+	if (isChar(str))
+		return (_char);
 	return (_error);
 }
 

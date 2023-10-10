@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 21:32:44 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/17 22:32:54 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:24:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 
 class	Serializer
 {
+    private:
+        Serializer(void);
+        ~Serializer(void);
+        Serializer(Serializer const &source);
+        Serializer & operator=(Serializer const &source);
     public:
         static uintptr_t    serialize(Data* ptr);
         static Data*        deserialize(uintptr_t raw);

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:12:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/09 22:20:41 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:52:11 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ ScalarConverter::ScalarConverter(void)
 	return ;
 }
 
-ScalarConverter::ScalarConverter(ScalarConverter const &src)
+ScalarConverter::ScalarConverter(ScalarConverter const &source)
 {
-	*this = src;
+	*this = source;
 	return ;
 }
 
@@ -60,7 +60,7 @@ static int myStoi(std::string &str)
 static float  myStof(std::string str)
 {
 	float n;
-	std::stringstream ss(str);
+	std::stringstream ss(str.substr(0, str.length() - 1));
 
 	ss >> n;
 	return (n);
@@ -213,12 +213,12 @@ static Type getType(const std::string str)
 		return (_pseudo);
 	if (isChar(str))
 		return (_char);
-	if (isInt(str))
-		return (_int);
 	if (isFloat(str))
 		return (_float);
 	if (isDouble(str))
 		return (_double);
+	if (isInt(str))
+		return (_int);
 	return (_error);
 }
 

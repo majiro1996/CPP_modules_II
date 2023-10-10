@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:07:01 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/04 17:57:40 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:36:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class ScalarConverter
 {
 	private:
 		ScalarConverter(void);
-		ScalarConverter(ScalarConverter const &src);
+		ScalarConverter(ScalarConverter const &source);
 		~ScalarConverter(void);
 		ScalarConverter &operator=(ScalarConverter const &source);
 

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:07:01 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/11 17:40:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:49:21 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ Array<T> &	Array<T>::operator=(Array const &source)
     if (this != &source)
     {
         delete [] this->_arr;
-        this->_arr = new T[source.size];
-        this->_size = source.size;
+        this->_arr = new T[source.size()];
+        this->_size = source.size();
         for (int i = 0; i < source._size; i++)
             this->_arr[i] = source._arr[i];
     }

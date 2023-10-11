@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 10:58:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 11:21:08 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:59:13 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ template <typename T>
 void   testPrint(T &a)
 {
     std::cout << a << std::endl;
+}
+
+template <typename T>
+void   testAdd(T &a)
+{
+    a += 1;
 }
 
 template <typename T>

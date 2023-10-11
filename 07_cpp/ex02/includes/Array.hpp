@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:07:01 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 16:02:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:40:52 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ class Array
         Array(Array const &source);
         ~Array(void);
 
-        Array &	operator=(Array const &source);
+        Array   &operator=(Array const &source);
 
-        T &		operator[](int i);
+        T       &operator[](int i);
         unsigned int		size(void) const;
 };
 

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:44:06 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:12 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:29:31 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,13 @@ int	main(void)
     for (int i = 0; i < 5; i++)
         std::cout << arr2[i] << " ";
     std::cout << std::endl;
+
+    try
+    {
+        std::cout << arr[5] << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "arr[5]: " << e.what() << std::endl;
+    }
 }

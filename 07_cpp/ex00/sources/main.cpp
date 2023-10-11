@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:44:06 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 09:43:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:59:20 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ int	main(void)
     std::cout << "Test for char:" << std::endl;
     ::test('a', 'b');
     std::cout << "Test for string:" << std::endl;
-    ::test("a", "b");
+    ::test("aaa", "bbb");
     std::cout << "Test for bool:" << std::endl;
     ::test(true, false);
 
     std::cout << std::endl << "Subject test" << std::endl;
+    
     /*  should output:
         a = 3, b = 2
         min(a, b) = 2

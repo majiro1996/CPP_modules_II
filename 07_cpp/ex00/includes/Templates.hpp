@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/19 09:40:29 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:58:47 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void    test(T a, T b)
 {
     std::cout << "a: " << a << " b: " << b << std::endl;
     swap(a, b);
+    std::cout << "swap(a, b)" << std::endl;
     std::cout << "a: " << a << " b: " << b << std::endl;
     std::cout << "min: " << ::min(a, b) << std::endl;
     std::cout << "max: " << ::max(a, b) << std::endl;

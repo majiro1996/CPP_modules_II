@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/16 21:37:53 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:06:37 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    fillContainer(T &container, int start, int end)
 template <typename T>
 void    basicTest(T &container, int start, int end)
 {
-    for (int i = start; i < end; i++)
+    for (int i = start; i <= end; i++)
     {
         if (easyfind(container, i))
             std::cout << "Found " << i << std::endl;

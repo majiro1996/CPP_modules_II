@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 09:44:06 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/02 16:18:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:58:21 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(void)
     }
 
     {
-        std::cout << "---------------------" << std::endl;
+        std::cout << "-----LIST TEST-------" << std::endl;
 
         std::list<int> l;
         l.push_back(5);

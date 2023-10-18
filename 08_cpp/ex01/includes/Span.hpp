@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/28 18:40:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:25:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # include <iostream>
 # include <string>
 # include <list>
+# include <numeric>
 # include <algorithm>
+# include <stdexcept>
+# include <cstdlib>
+//# include <random>
 
 class Span
 {

@@ -6,14 +6,11 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 15:38:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/09/28 18:44:14 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:36:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Span.hpp"
-#include <algorithm>
-#include <stdexcept>
-#include <random>
 
 Span::Span(void) : _N(0), _size(0)
 {
@@ -62,7 +59,7 @@ void   Span::addRandom(int amount)
     srand(time(NULL));
     for (int i = 0; i < amount; i++)
     {
-        this->_arr.push_back(std::rand() % amount);
+        this->_arr.push_back(std::rand() % 100);
         this->_size++;
     }
 }
@@ -73,21 +70,10 @@ int    Span::shortestSpan(void)
         throw std::length_error("Not enough numbers");
     std::list<int>  tmp = this->_arr;
     tmp.sort();
-    int             min = tmp.front();
-    int             next = tmp.back();
-    int             diff = next - min;
+    std::list<int> diff;
+    std::adjacent_difference(tmp.begin(), tmp.end(), std::back_inserter(diff));
+    return (std::abs(*std::min_element(diff.begin(), diff.end())));
 
-    for (std::list<int>::iterator it = tmp.begin(); it != tmp.end(); it++)
-    {
-        if (it != tmp.begin())
-        {
-            next = *it;
-            if (next - min < diff)
-                diff = next - min;
-            min = next;
-        }
-    }
-    return (diff);
 }
 
 int    Span::longestSpan(void)
@@ -96,11 +82,7 @@ int    Span::longestSpan(void)
         throw std::length_error("Not enough numbers");
     std::list<int>  tmp = this->_arr;
     tmp.sort();
-    int             min = tmp.front();
-    int             max = tmp.back();
-    int             diff = max - min;
-
-    return (diff);
+    return (std::abs(tmp.back() - tmp.front()));
 }
 
 std::list<int>  Span::getArr(void) const
@@ -113,7 +95,7 @@ std::ostream    &operator<<(std::ostream &o, Span const &source)
     std::list<int>  tmp = source.getArr();
     for (std::list<int>::iterator it = tmp.begin(); it != tmp.end(); it++)
     {
-        o << *it << std::endl;
+        o << *it << " ";
     }
     return (o);
 }

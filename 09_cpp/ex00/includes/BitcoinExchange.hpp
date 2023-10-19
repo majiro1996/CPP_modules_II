@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/04 19:01:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:08:34 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string>
 # include <map>
 # include <sstream>
+# include <fstream>
 
 class BitcoinExchange
 {
@@ -30,6 +31,7 @@ class BitcoinExchange
 		bool   validFormat(std::string const &str);
 		bool   validDate(std::string const &str);
 		bool   validValue(std::string const &str);
+		void   takeRates(std::string const &filename);
 
 	private:
 		std::map<std::string, float>	_rates;

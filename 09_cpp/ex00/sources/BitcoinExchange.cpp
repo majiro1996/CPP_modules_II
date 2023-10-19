@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/04 19:01:53 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:09:02 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,5 @@ bool	BitcoinExchange::validFormat(std::string const &str)
 {
 	return (true);
 }
+
+void	BitcoinExchange::takeRates(std::string const &filename)

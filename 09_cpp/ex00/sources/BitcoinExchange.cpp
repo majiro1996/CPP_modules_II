@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/24 18:17:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:48:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,10 @@ std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source)
 bool BitcoinExchange::dateSearch(std::string const &date) const
 {
 	std::map<std::string, float> const	rates = this->getRates();
-	std::map<std::string, float>::const_iterator it = rates.find(date);
 
-	if (it != rates.end())
+	if (rates.count(date) > 0)
 		return (true);
-	else
-		return (false);
+	return (false);
 }
 
 //checks that the date conforms to the format YYYY-MM-DD
@@ -88,6 +86,15 @@ bool	dateCheck(std::string date)
 	if (date.length() != 10)
 		return (false);
 	if (date.find("-") != 2)
+		return (false);
+	int year = myStoi(date.substr(0, 4));
+	if (year < 2000 || year > 2023)
+		return (false);
+	int month = myStoi(date.substr(5, 2));
+	if (month < 1 || month > 12)
+		return (false);
+	int day = myStoi(date.substr(8, 2));
+	if (day < 1 || day > 31)
 		return (false);
 	return (true);
 }
@@ -162,7 +169,10 @@ void  BitcoinExchange::closestDate(std::string const &date) const
 	std::string aux = date;
 	while (!this->dateSearch(aux))
 	{
-		
+		if (isHigherDate(aux, date))
+			aux = aux.substr(0, 4) + "-" + aux.substr(5, 2) + "-" + std::to_string(myStoi(aux.substr(8, 2)) - 1);
+		else
+			aux = aux.substr(0, 4) + "-" + aux.substr(5, 2) + "-" + std::to_string(myStoi(aux.substr(8, 2)) + 1);
 	}
 }
 
@@ -178,13 +188,15 @@ void   BitcoinExchange::takeInput(std::string const &filename)
 	{
 		while (std::getline(inputData, line))
 		{
-			date = line.substr(0, line.find("|"));
+			date = line.substr(0, line.find(" "));
 			value = myStof(line.substr(line.find("|") + 1));
+			
 			if (value < 0)
-				std::cout << date << ": " << "negative value" << std::endl;
+				std::cout << "Error: negative value" << std::endl;
 			else if (this->dateSearch(date))
 				std::cout << date << "=> " << value << std::endl;
 			else
+				std::cout << date << ": " << "no data" << std::endl;
 		}
 		inputData.close();
 	} 

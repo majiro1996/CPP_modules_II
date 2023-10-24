@@ -6,11 +6,20 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/19 19:09:02 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:41:00 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/BitcoinExchange.hpp"
+
+static float myStof(std::string const &str)
+{
+	std::stringstream	ss(str);
+	float				ret;
+
+	ss >> ret;
+	return (ret);
+}
 
 BitcoinExchange::BitcoinExchange(void)
 {
@@ -28,6 +37,11 @@ BitcoinExchange::~BitcoinExchange(void)
 	return ;
 }
 
+std::map<std::string, float>	BitcoinExchange::getRates(void) const
+{
+	return (this->_rates);
+}
+
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &source)
 {
 	if (this != &source)
@@ -37,25 +51,44 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &source)
 	return (*this);
 }
 
-//a valid date shoudl be Year-Month-Day
-bool	BitcoinExchange::validDate(std::string const &str)
+std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source)
 {
-	return (true);
-}
+	std::map<std::string, float> const	rates = source.getRates();
 
-// a valid rate should be either a float or a positive integer ranged 0-1000
-bool	BitcoinExchange::validValue(std::string const &str)
-{
-	std::stringstream	ss(str);
-	float				num;
-
-	ss >> num;
-}
-
-// the format should be "date | value"
-bool	BitcoinExchange::validFormat(std::string const &str)
-{
-	return (true);
+    for (std::map<std::string, float>::const_iterator it = rates.begin(); it != rates.end(); ++it)
+    {
+        o << it->first << ": " << it->second << std::endl;
+    }
+	return (o);
 }
 
 void	BitcoinExchange::takeRates(std::string const &filename)
+{
+	std::ifstream	rateData;
+	std::string		line;
+	std::string		key;
+	float			value;
+
+	rateData.open(filename.c_str());
+	if (rateData.is_open())
+	{
+		while (std::getline(rateData, line))
+		{
+			key = line.substr(0, line.find(","));
+			try
+			{
+				value = myStof(line.substr(line.find(",") + 1));
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
+			this->_rates.insert(std::pair<std::string, float>(key, value));
+		}  
+		rateData.close();
+	} 
+	else
+	{
+		std::cout << "Error: could not open file" << std::endl;
+	}
+}

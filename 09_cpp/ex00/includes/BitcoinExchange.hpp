@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/19 19:08:34 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/24 12:23:10 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ class BitcoinExchange
 
 		BitcoinExchange &operator=(BitcoinExchange const &source);
 
-		bool   validFormat(std::string const &str);
-		bool   validDate(std::string const &str);
-		bool   validValue(std::string const &str);
 		void   takeRates(std::string const &filename);
+		std::map<std::string, float>	getRates(void) const;
 
 	private:
 		std::map<std::string, float>	_rates;
 };
+
+std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/24 13:41:00 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:17:27 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ static float myStof(std::string const &str)
 {
 	std::stringstream	ss(str);
 	float				ret;
+
+	ss >> ret;
+	return (ret);
+}
+
+static int myStoi(std::string const &str)
+{
+	std::stringstream	ss(str);
+	int					ret;
 
 	ss >> ret;
 	return (ret);
@@ -62,6 +71,37 @@ std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source)
 	return (o);
 }
 
+bool BitcoinExchange::dateSearch(std::string const &date) const
+{
+	std::map<std::string, float> const	rates = this->getRates();
+	std::map<std::string, float>::const_iterator it = rates.find(date);
+
+	if (it != rates.end())
+		return (true);
+	else
+		return (false);
+}
+
+//checks that the date conforms to the format YYYY-MM-DD
+bool	dateCheck(std::string date)
+{
+	if (date.length() != 10)
+		return (false);
+	if (date.find("-") != 2)
+		return (false);
+	return (true);
+}
+
+std::string BitcoinExchange::getDate(std::string const &date) const
+{
+	std::string ret = date.substr(0, date.find("|"));
+
+	if (!dateCheck(ret))
+		return ("NOT A VALID DATE");
+	return (ret);
+	
+}
+
 void	BitcoinExchange::takeRates(std::string const &filename)
 {
 	std::ifstream	rateData;
@@ -89,6 +129,67 @@ void	BitcoinExchange::takeRates(std::string const &filename)
 	} 
 	else
 	{
-		std::cout << "Error: could not open file" << std::endl;
+		std::cout << "Error: could not open " << filename << std::endl;
+	}
+}
+
+static bool isHigherDate(std::string const &date1, std::string const &date2)
+{
+	int	year1 = myStoi(date1.substr(0, 4));
+	int	year2 = myStoi(date2.substr(0, 4));
+	int	month1 = myStoi(date1.substr(5, 2));
+	int	month2 = myStoi(date2.substr(5, 2));
+	int	day1 = myStoi(date1.substr(8, 2));
+	int	day2 = myStoi(date2.substr(8, 2));
+
+	if (year1 > year2)
+		return (true);
+	else if (year1 == year2)
+	{
+		if (month1 > month2)
+			return (true);
+		else if (month1 == month2)
+		{
+			if (day1 > day2)
+				return (true);
+		}
+	}
+	return (false);
+}
+
+void  BitcoinExchange::closestDate(std::string const &date) const
+{
+	std::string aux = date;
+	while (!this->dateSearch(aux))
+	{
+		
+	}
+}
+
+void   BitcoinExchange::takeInput(std::string const &filename)
+{
+	std::ifstream	inputData;
+	std::string		line;
+	std::string		date;
+	float			value;
+
+	inputData.open(filename.c_str());
+	if (inputData.is_open())
+	{
+		while (std::getline(inputData, line))
+		{
+			date = line.substr(0, line.find("|"));
+			value = myStof(line.substr(line.find("|") + 1));
+			if (value < 0)
+				std::cout << date << ": " << "negative value" << std::endl;
+			else if (this->dateSearch(date))
+				std::cout << date << "=> " << value << std::endl;
+			else
+		}
+		inputData.close();
+	} 
+	else
+	{
+		std::cout << "Error: could not open " << filename << std::endl;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/25 12:37:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:49:05 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ class BitcoinExchange
 	private:
 		std::map<std::string, float>	_rates;
 		bool   							dateSearch(std::string const &date) const;
-		void							closestDate(std::string const &date, int value) const;
+		void							closestDate(std::string const &date, float value) const;
 		std::string						getDate(std::string const &date) const;
-};
+}; 
 
 std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source);
 

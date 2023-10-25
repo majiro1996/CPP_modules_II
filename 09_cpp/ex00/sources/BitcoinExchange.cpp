@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/25 12:50:46 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:49:57 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 static bool tooBigNumber(std::string const &str)
 {
-	std::stringstream	ss(str);
 	std::string			aux;
 
-	if (str.length() > 10)
+	if (str.length() > 11)
 		return (true);
-	if (str.length() == 10)
+	if (str.length() == 11)
 	{
-		aux = str.substr(1, 9);
-		std::cout << aux << "TESTTSTSTS" << std::endl;
-		return (true);
+		aux = str.substr(1, 11);
+		if (aux.compare("2147483647") > 0)
+			return (true);
 	}
 	return (false);
 }
@@ -167,7 +166,7 @@ static void reduceDate(int *year, int *month, int *day)
 	}
 }
 
-void  BitcoinExchange::closestDate(std::string const &date, int value) const
+void  BitcoinExchange::closestDate(std::string const &date, float value) const
 {
 	std::stringstream	ss(date);
 	std::string aux = date;
@@ -211,9 +210,9 @@ void   BitcoinExchange::takeInput(std::string const &filename)
 			date = line.substr(0, line.find(" "));
 			value = myStof(line.substr(line.find("|") + 1));
 			if (line.find("|") == std::string::npos)
-				std::cout << "Error: bad input" << std::endl;
+				std::cout << "Error: bad input => " << line << std::endl;
 			else if (tooBigNumber(line.substr(line.find("|") + 1)))
-				std::cout << "Error: too big number" << std::endl;
+				std::cout << "Error: too large" << std::endl;
 			else if (!dateCheck(date))
 				std::cout << "Error: bad date => " << date << std::endl;
 			else if (value < 0)

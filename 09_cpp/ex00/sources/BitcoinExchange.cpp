@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/24 19:48:58 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:54:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,12 @@ bool BitcoinExchange::dateSearch(std::string const &date) const
 //checks that the date conforms to the format YYYY-MM-DD
 bool	dateCheck(std::string date)
 {
-	if (date.length() != 10)
-		return (false);
-	if (date.find("-") != 2)
-		return (false);
 	int year = myStoi(date.substr(0, 4));
-	if (year < 2000 || year > 2023)
-		return (false);
 	int month = myStoi(date.substr(5, 2));
-	if (month < 1 || month > 12)
-		return (false);
 	int day = myStoi(date.substr(8, 2));
-	if (day < 1 || day > 31)
+	
+	if (/*date.length() != 9 || date.find("-") != 2 || */year < 2000
+		|| year > 2023 || month < 1 || month > 12 || day < 1 || day > 31)
 		return (false);
 	return (true);
 }
@@ -140,40 +134,46 @@ void	BitcoinExchange::takeRates(std::string const &filename)
 	}
 }
 
-static bool isHigherDate(std::string const &date1, std::string const &date2)
+void  BitcoinExchange::closestDate(std::string const &date, int value) const
 {
-	int	year1 = myStoi(date1.substr(0, 4));
-	int	year2 = myStoi(date2.substr(0, 4));
-	int	month1 = myStoi(date1.substr(5, 2));
-	int	month2 = myStoi(date2.substr(5, 2));
-	int	day1 = myStoi(date1.substr(8, 2));
-	int	day2 = myStoi(date2.substr(8, 2));
-
-	if (year1 > year2)
-		return (true);
-	else if (year1 == year2)
-	{
-		if (month1 > month2)
-			return (true);
-		else if (month1 == month2)
-		{
-			if (day1 > day2)
-				return (true);
-		}
-	}
-	return (false);
-}
-
-void  BitcoinExchange::closestDate(std::string const &date) const
-{
+	std::stringstream	ss(date);
 	std::string aux = date;
-	while (!this->dateSearch(aux))
+	int day = myStoi(date.substr(8, 2));
+	int month = myStoi(date.substr(5, 2));
+	int year = myStoi(date.substr(0, 4));
+	while (!this->dateSearch(aux) && year > 2009)
 	{
-		if (isHigherDate(aux, date))
-			aux = aux.substr(0, 4) + "-" + aux.substr(5, 2) + "-" + std::to_string(myStoi(aux.substr(8, 2)) - 1);
+		ss.str("");
+		if (day > 1)
+			day--;
+		else if (month > 1)
+		{
+			month--;
+			day = 31;
+		}
 		else
-			aux = aux.substr(0, 4) + "-" + aux.substr(5, 2) + "-" + std::to_string(myStoi(aux.substr(8, 2)) + 1);
+		{
+			year--;
+			month = 12;
+			day = 31;
+		}
+		ss << year;
+		if (month < 10)
+			ss << "-0" << month;
+		else
+			ss << "-" << month;
+		if (day < 10)
+			ss << "-0" << day;
+		else
+			ss << "-" << day;
+		aux = ss.str();
 	}
+	if (this->dateSearch(aux))
+	{
+		std::cout << date << "=> " << value << " = " << this->_rates.find(aux)->second * value << std::endl;
+		return ;
+	}
+	std::cout << date << "=> " << "no data" << std::endl;
 }
 
 void   BitcoinExchange::takeInput(std::string const &filename)
@@ -191,12 +191,14 @@ void   BitcoinExchange::takeInput(std::string const &filename)
 			date = line.substr(0, line.find(" "));
 			value = myStof(line.substr(line.find("|") + 1));
 			
-			if (value < 0)
-				std::cout << "Error: negative value" << std::endl;
+			if (!dateCheck(date))
+				std::cout << "Error: bad input => " << date << std::endl;
+			else if (value < 0)
+				std::cout << "Error: negative value" << std::endl; 
 			else if (this->dateSearch(date))
-				std::cout << date << "=> " << value << std::endl;
+				std::cout << date << " => " << value << " = " << value * _rates[date] <<std::endl;
 			else
-				std::cout << date << ": " << "no data" << std::endl;
+				this->closestDate(date, value);
 		}
 		inputData.close();
 	} 

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/25 10:53:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:37:22 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ class BitcoinExchange
 		BitcoinExchange &operator=(BitcoinExchange const &source);
 
 		void   							takeInput(std::string const &filename);
-		std::string						getDate(std::string const &date) const;
 		void   							takeRates(std::string const &filename);
 		std::map<std::string, float>	getRates(void) const;
-		bool   							dateSearch(std::string const &date) const;
-		void							closestDate(std::string const &date, int value) const;
 
 	private:
 		std::map<std::string, float>	_rates;
+		bool   							dateSearch(std::string const &date) const;
+		void							closestDate(std::string const &date, int value) const;
+		std::string						getDate(std::string const &date) const;
 };
 
 std::ostream	&operator<<(std::ostream &o, BitcoinExchange const &source);

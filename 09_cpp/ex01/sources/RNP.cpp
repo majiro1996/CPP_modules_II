@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:51:57 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/26 16:52:58 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:34:23 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int myStoi(std::string input)
 
 void   RPN::process(std::string input)
 {
+    std::stringstream   ssSteps;
     std::stringstream   ss(input);
     std::string         str;
     long long           res;
@@ -56,37 +57,32 @@ void   RPN::process(std::string input)
     {
         if (str.find_first_not_of("+-*/") == std::string::npos)
         {
-/*             if (this->_stack.size() < 2)
+            if (this->_stack.size() < 2)
             {
                 std::cout << "Error: Not enough operands" << std::endl;
                 return ;
-            } */
-            while (this->_stack.size() > 1)
-            {
-                res = this->_stack.top();
-                this->_stack.pop();
-                std::cout << this->_stack.top() << " ";
-                std::cout << str << " ";
-                std::cout << res << " = ";
-                if (str == "+")
-                    res += this->_stack.top();
-                else if (str == "-") 
-                    res = this->_stack.top() - res;
-                else if (str == "*")
-                    res = this->_stack.top() * res;
-                else if (str == "/")
-                {
-                    if (res == 0)
-                    {
-                        std::cout << "Error: Division by zero" << std::endl;
-                        return ;
-                    }
-                    res = this->_stack.top() / res;
-                }
-                this->_stack.pop();
-                this->_stack.push(res);
-                std::cout << this->_stack.top() << std::endl;
             }
+            res = this->_stack.top();
+            this->_stack.pop();
+            ssSteps << this->_stack.top() << " " << str << " " << res << " = ";
+            if (str == "+")
+                res += this->_stack.top();
+            else if (str == "-") 
+                res = this->_stack.top() - res;
+            else if (str == "*")
+                res = this->_stack.top() * res;
+            else if (str == "/")
+            {
+                if (res == 0)
+                {
+                    std::cout << "Error: Division by zero" << std::endl;
+                    return ;
+                }
+                res = this->_stack.top() / res;
+            }
+            this->_stack.pop();
+            this->_stack.push(res);
+            ssSteps << this->_stack.top() << std::endl;
         }
         else if (str.find_first_not_of("0123456789") == std::string::npos)
             this->_stack.push(myStoi(str));
@@ -96,5 +92,6 @@ void   RPN::process(std::string input)
             return ;
         }
     }
+    std::cout << ssSteps.str();
     std::cout << "Result: " << this->_stack.top() << std::endl;
 }

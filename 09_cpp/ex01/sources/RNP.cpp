@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:51:57 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/26 12:02:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:52:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,23 @@ void   RPN::process(std::string input)
 {
     std::stringstream   ss(input);
     std::string         str;
-    int                 res;
+    long long           res;
 
     while (ss >> str)
     {
-        if (str == "+" || str == "-" || str == "/" || str == "*")
+        if (str.find_first_not_of("+-*/") == std::string::npos)
         {
-            if (this->_stack.size() < 2)
+/*             if (this->_stack.size() < 2)
             {
                 std::cout << "Error: Not enough operands" << std::endl;
                 return ;
-            }
+            } */
             while (this->_stack.size() > 1)
             {
-                std::cout << str << " ";
                 res = this->_stack.top();
                 this->_stack.pop();
                 std::cout << this->_stack.top() << " ";
+                std::cout << str << " ";
                 std::cout << res << " = ";
                 if (str == "+")
                     res += this->_stack.top();
@@ -88,8 +88,13 @@ void   RPN::process(std::string input)
                 std::cout << this->_stack.top() << std::endl;
             }
         }
-        else
+        else if (str.find_first_not_of("0123456789") == std::string::npos)
             this->_stack.push(myStoi(str));
+        else
+        {
+            std::cout << "Error: Invalid input" << std::endl;
+            return ;
+        }
     }
     std::cout << "Result: " << this->_stack.top() << std::endl;
 }

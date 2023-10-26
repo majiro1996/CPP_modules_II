@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/25 20:07:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:40:30 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@ class RPN
         void    process(std::string input);
         
     private:
-        std::stack<int> _stack;
-        
-       /* void    add(void);
-        void    sub(void);
-        void    mul(void);
-        void    div(void);*/
+        std::stack<int>     _stack;
 };
 
 #endif

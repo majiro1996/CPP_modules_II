@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 00:05:16 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:53:13 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,112 @@ void       Pmergeme::sort(std::vector<int> &vec)
 {
     std::cout << "Before: ";
     this->printVec();
-    (void)vec;
+    
+    if (vec.size() <= 1)
+        return; // Already sorted
 
+    // Step 1: If the list has an odd number of elements, remove one and set it aside.
+    int oddElement = 0;
+    bool hasOddElement = false;
+    if (vec.size() % 2 != 0)
+    {
+        oddElement = vec.back();
+        vec.pop_back();
+        hasOddElement = true;
+    }
+
+    // Step 2: Pair up the remaining elements in the list.
+    // Step 3: Sort each pair of elements.
+    for (size_t i = 0; i < vec.size(); i += 2)
+    {
+        if (vec[i] > vec[i + 1]) 
+        {
+            std::swap(vec[i], vec[i + 1]);
+        }
+    }
+
+    // Step 4: Merge the sorted pairs into a single sorted list.
+    std::vector<int> temp(vec.size());
+    for (size_t width = 2; width < vec.size(); width *= 2)
+    {
+        for (size_t i = 0; i < vec.size(); i += 2 * width) 
+        {
+            std::merge(vec.begin() + i, vec.begin() + std::min(i + width, vec.size()),
+                       vec.begin() + std::min(i + width, vec.size()), vec.begin() + std::min(i + 2 * width, vec.size()),
+                       temp.begin() + i);
+        }
+        std::copy(temp.begin(), temp.end(), vec.begin());
+    }
+
+    // Step 5: If there was an odd element, insert it into the correct position.
+    if (hasOddElement)
+    {
+        vec.insert(std::upper_bound(vec.begin(), vec.end(), oddElement), oddElement);
+    }
     std::cout << "Vector sorted: ";
     this->printVec();
     
 }
 
-void       Pmergeme::sort(std::list<int> &lst)
+void Pmergeme::sort(std::list<int> &lst)
 {
     std::cout << "Before: ";
     this->printLst();
-    (void)lst;
+
+    if (lst.size() <= 1)
+        return; // Already sorted
     
+    // Step 1: If the list has an odd number of elements, remove one and set it aside.
+    int oddElement = 0;
+    bool hasOddElement = false;
+
+    if (lst.size() % 2 != 0)
+    {
+        oddElement = lst.back();
+        lst.pop_back();
+        hasOddElement = true;
+    }
+
+    // Step 2: Pair up the remaining elements in the list.
+    // Step 3: Sort each pair of elements.
+    for (std::list<int>::iterator it = lst.begin(); it != lst.end(); std::advance(it, 2))
+    {
+        std::list<int>::iterator next = it;
+        std::advance(next, 1);
+        if (next != lst.end() && *it > *next)
+        {
+            std::swap(*it, *next);
+        }
+    }
+
+    // Step 4: Merge the sorted pairs into a single sorted list.
+    std::list<int> temp(lst);
+    for (size_t width = 2; width < lst.size(); width *= 2)
+    {
+        for (size_t i = 0; i < lst.size(); i += width) 
+        {
+            std::list<int>::iterator first = temp.begin();
+            std::advance(first, i);
+            size_t mid = i + width < lst.size() ? i + width : lst.size();
+            size_t end = i + 2 * width < lst.size() ? i + 2 * width : lst.size();
+            std::list<int>::iterator middle = first;
+            std::advance(middle, mid - i);
+            std::list<int>::iterator last = middle;
+            std::advance(last, end - mid);
+            std::list<int> merged(first, middle);
+            std::list<int> temp_list(middle, last);
+            merged.merge(temp_list);
+            std::copy(merged.begin(), merged.end(), first);
+        }
+    }
+
+    // Step 5: If there was an odd element, insert it into the correct position.
+    if (hasOddElement)
+    {
+        std::list<int>::iterator pos = std::upper_bound(lst.begin(), lst.end(), oddElement);
+        lst.insert(pos, oddElement);
+    }
+
     std::cout << "List sorted: ";
     this->printLst();
 }

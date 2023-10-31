@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 09:48:59 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:04:52 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <string>
 # include <vector>
 # include <list>
-# include <time.h>
 # include <algorithm>
+# include <iomanip>
 
 class Pmergeme
 {
@@ -42,7 +42,8 @@ class Pmergeme
     private:
         std::vector<int>    _vec;
         std::list<int>      _lst;
-        clock_t             _time;
+        clock_t             _timeVec;
+        clock_t             _timeLst;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 14:39:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:06:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,10 @@ Pmergeme &	Pmergeme::operator=(Pmergeme const &source)
     {
         this->_vec = source._vec;
         this->_lst = source._lst;
+        this->_timeVec = source._timeVec;
+        this->_timeLst = source._timeLst;
     }
     return (*this);
-}
-
-void       Pmergeme::takeTime(void)
-{
-    _time = clock();
-}
-
-void       Pmergeme::printTime(void)
-{
-    std::cout << "Time: " << (clock() - _time) / (double)CLOCKS_PER_SEC * 1e6 << " microseconds" << std::endl;
-    return ;
 }
 
 bool       Pmergeme::takeInput(std::string str)
@@ -124,13 +115,10 @@ void       Pmergeme::printLst(void)
 
 void       Pmergeme::sort(std::vector<int> &vec)
 {
-    std::cout << "Before: ";
-    this->printVec();
-    
     if (vec.size() <= 1 || isSorted(vec))
         return; // Already sorted
 
-    // Step 1: If the list has an odd number of elements, remove one and set it aside.
+    //If the list has an odd number of elements, remove one and set it aside.
     int oddElement = 0;
     bool hasOddElement = false;
     if (vec.size() % 2 != 0)
@@ -140,8 +128,8 @@ void       Pmergeme::sort(std::vector<int> &vec)
         hasOddElement = true;
     }
 
-    // Step 2: Pair up the remaining elements in the list.
-    // Step 3: Sort each pair of elements.
+    //Pair up the remaining elements in the list.
+    //Sort each pair of elements.
     for (size_t i = 0; i < vec.size(); i += 2)
     {
         if (vec[i] > vec[i + 1]) 
@@ -150,7 +138,7 @@ void       Pmergeme::sort(std::vector<int> &vec)
         }
     }
 
-    // Step 4: Merge the sorted pairs into a single sorted list.
+    //Merge the sorted pairs into a single sorted list.
     std::vector<int> temp(vec.size());
     for (size_t width = 2; width < vec.size(); width *= 2)
     {
@@ -159,18 +147,15 @@ void       Pmergeme::sort(std::vector<int> &vec)
             std::merge(vec.begin() + i, vec.begin() + std::min(i + width, vec.size()),
                        vec.begin() + std::min(i + width, vec.size()), vec.begin() + std::min(i + 2 * width, vec.size()),
                        temp.begin() + i);
-        }
+        } 
         std::copy(temp.begin(), temp.end(), vec.begin());
     }
 
-    // Step 5: If there was an odd element, insert it into the correct position.
+    //If there was an odd element, insert it into the correct position.
     if (hasOddElement)
     {
         vec.insert(std::upper_bound(vec.begin(), vec.end(), oddElement), oddElement);
     }
-    std::cout << "Vector sorted: ";
-    this->printVec();
-    
 }
 
 void Pmergeme::sort(std::list<int> &lst)
@@ -178,35 +163,77 @@ void Pmergeme::sort(std::list<int> &lst)
     if (lst.size() <= 1 || isSorted(lst))
         return; // Already sorted
 
-    std::list<int> left;
-    std::list<int> right;
-    std::list<int>::iterator middle = lst.begin();
-    std::advance(middle, lst.size() / 2);
+    //If the list has an odd number of elements, remove one and set it aside.
+    int oddElement = 0;
+    bool hasOddElement = false;
+    if (lst.size() % 2 != 0)
+    {
+        oddElement = lst.back();
+        lst.pop_back();
+        hasOddElement = true;
+    }
 
-    // Divide the list into two
-    std::copy(lst.begin(), middle, std::back_inserter(left));
-    std::copy(middle, lst.end(), std::back_inserter(right));
+    //Pair up the remaining elements in the list.
+    //Sort each pair of elements.
+    std::list<int>::iterator it = lst.begin();
+    while (it != lst.end())
+    {
+        std::list<int>::iterator nextIt = it;
+        std::advance(nextIt, 1);
+        if (*it > *nextIt)
+        {
+            std::swap(*it, *nextIt);
+        }
+        std::advance(it, 2);
+    }
 
-    //recursively sort the sublists
-    sort(left);
-    sort(right);
+    //Merge the sorted pairs into a single sorted list.
+    for (size_t width = 2; width <= lst.size(); width *= 2)
+    {
+        std::list<int>::iterator it = lst.begin();
 
-    //merge the two sorted lists
-    std::merge(left.begin(), left.end(), right.begin(), right.end(), lst.begin());
+        while (std::distance(it, lst.end()) > 0)
+        {
+            std::list<int>::iterator middle = it;
+            std::advance(middle, std::min(width, static_cast<size_t>(std::distance(it, lst.end()))));
+
+            std::list<int>::iterator end = middle;
+            std::advance(end, std::min(width, static_cast<size_t>(std::distance(middle, lst.end()))));
+
+            std::inplace_merge(it, middle, end);
+            it = end;
+        }
+    }
+
+    //Step 5: If there was an odd element, insert it into the correct position.
+    if (hasOddElement)
+    {
+        lst.insert(std::upper_bound(lst.begin(), lst.end(), oddElement), oddElement);
+    }
 }
 
 void       Pmergeme::sort(void)
 {
-    this->takeTime();
-    this->sort(this->_vec);
-    this->printTime();
-    this->takeTime();
+    long long int   size = this->_vec.size();
+
     std::cout << "Before: ";
-    this->printLst();
+    this->printVec();
+    
+    _timeVec = clock();
+    std::cout << "Vector sorted: ";
+    this->sort(this->_vec);
+    _timeVec = clock() - _timeVec;
+    this->printVec();
+   
+    _timeLst = clock();
     this->sort(this->_lst);
+    _timeLst = clock() - _timeLst;
     std::cout << "List sorted: ";
     this->printLst();
-    this->printTime();
+
+    std::cout << "Vector time: " << _timeVec / (double)CLOCKS_PER_SEC *1e6 << " microseconds for a size of " <<  size <<std::endl;
+    std::cout << "List time: " << _timeLst / (double)CLOCKS_PER_SEC *1e6 << " microseconds for a size of " <<  size <<std::endl;
+
     if (!isSorted(this->_vec))
         std::cout << "Vector not sorted." << std::endl;
     if (!isSorted(this->_lst))

@@ -6,12 +6,12 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 10:53:13 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:55:32 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Pmergeme.hpp"
-/*
+
 static bool    isSorted(std::vector<int> &vec)
 {
     for (unsigned int i = 0; i < vec.size() - 1; i++)
@@ -36,7 +36,7 @@ static bool    isSorted(std::list<int> &lst)
     }
     return (true);
 }
-*/
+
 unsigned int   myStoui(const std::string &str)
 {
     unsigned int    num = 0;
@@ -79,7 +79,7 @@ void       Pmergeme::takeTime(void)
 
 void       Pmergeme::printTime(void)
 {
-    std::cout << "Time: " << this->_time - clock() << std::endl;
+    std::cout << "Time: " << (clock() - _time) / (double)CLOCKS_PER_SEC * 1e6 << " microseconds" << std::endl;
     return ;
 }
 
@@ -238,6 +238,21 @@ void Pmergeme::sort(std::list<int> &lst)
 
 void       Pmergeme::sort(void)
 {
+    std::cout << "Before: ";
+    this->printVec();
+    this->takeTime();
     this->sort(this->_vec);
+    std::cout << "After: ";
+    this->printVec();
+    this->printTime();
+    std::cout << "Before: ";
+    this->printLst();
+    this->takeTime();
     this->sort(this->_lst);
+    std::cout << "After: ";
+    this->printLst();
+    if (!isSorted(this->_vec))
+        std::cout << "Vector not sorted." << std::endl;
+    if (!isSorted(this->_lst))
+        std::cout << "List not sorted." << std::endl;
 }

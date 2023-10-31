@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 13:55:32 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:39:25 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void       Pmergeme::sort(std::vector<int> &vec)
     std::cout << "Before: ";
     this->printVec();
     
-    if (vec.size() <= 1)
+    if (vec.size() <= 1 || isSorted(vec))
         return; // Already sorted
 
     // Step 1: If the list has an odd number of elements, remove one and set it aside.
@@ -175,82 +175,38 @@ void       Pmergeme::sort(std::vector<int> &vec)
 
 void Pmergeme::sort(std::list<int> &lst)
 {
-    std::cout << "Before: ";
-    this->printLst();
-
-    if (lst.size() <= 1)
+    if (lst.size() <= 1 || isSorted(lst))
         return; // Already sorted
-    
-    // Step 1: If the list has an odd number of elements, remove one and set it aside.
-    int oddElement = 0;
-    bool hasOddElement = false;
 
-    if (lst.size() % 2 != 0)
-    {
-        oddElement = lst.back();
-        lst.pop_back();
-        hasOddElement = true;
-    }
+    std::list<int> left;
+    std::list<int> right;
+    std::list<int>::iterator middle = lst.begin();
+    std::advance(middle, lst.size() / 2);
 
-    // Step 2: Pair up the remaining elements in the list.
-    // Step 3: Sort each pair of elements.
-    for (std::list<int>::iterator it = lst.begin(); it != lst.end(); std::advance(it, 2))
-    {
-        std::list<int>::iterator next = it;
-        std::advance(next, 1);
-        if (next != lst.end() && *it > *next)
-        {
-            std::swap(*it, *next);
-        }
-    }
+    // Divide the list into two
+    std::copy(lst.begin(), middle, std::back_inserter(left));
+    std::copy(middle, lst.end(), std::back_inserter(right));
 
-    // Step 4: Merge the sorted pairs into a single sorted list.
-    std::list<int> temp(lst);
-    for (size_t width = 2; width < lst.size(); width *= 2)
-    {
-        for (size_t i = 0; i < lst.size(); i += width) 
-        {
-            std::list<int>::iterator first = temp.begin();
-            std::advance(first, i);
-            size_t mid = i + width < lst.size() ? i + width : lst.size();
-            size_t end = i + 2 * width < lst.size() ? i + 2 * width : lst.size();
-            std::list<int>::iterator middle = first;
-            std::advance(middle, mid - i);
-            std::list<int>::iterator last = middle;
-            std::advance(last, end - mid);
-            std::list<int> merged(first, middle);
-            std::list<int> temp_list(middle, last);
-            merged.merge(temp_list);
-            std::copy(merged.begin(), merged.end(), first);
-        }
-    }
+    //recursively sort the sublists
+    sort(left);
+    sort(right);
 
-    // Step 5: If there was an odd element, insert it into the correct position.
-    if (hasOddElement)
-    {
-        std::list<int>::iterator pos = std::upper_bound(lst.begin(), lst.end(), oddElement);
-        lst.insert(pos, oddElement);
-    }
-
-    std::cout << "List sorted: ";
-    this->printLst();
+    //merge the two sorted lists
+    std::merge(left.begin(), left.end(), right.begin(), right.end(), lst.begin());
 }
 
 void       Pmergeme::sort(void)
 {
-    std::cout << "Before: ";
-    this->printVec();
     this->takeTime();
     this->sort(this->_vec);
-    std::cout << "After: ";
-    this->printVec();
     this->printTime();
+    this->takeTime();
     std::cout << "Before: ";
     this->printLst();
-    this->takeTime();
     this->sort(this->_lst);
-    std::cout << "After: ";
+    std::cout << "List sorted: ";
     this->printLst();
+    this->printTime();
     if (!isSorted(this->_vec))
         std::cout << "Vector not sorted." << std::endl;
     if (!isSorted(this->_lst))

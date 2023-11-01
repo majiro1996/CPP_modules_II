@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 00:50:00 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/31 17:04:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:58:32 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ class Pmergeme
         Pmergeme &	operator=(Pmergeme const &source);
 
         bool       takeInput(std::string str);
-        void       takeTime(void);
-        void       printTime(void);
         void       printVec(void);
         void       printLst(void);
         void       sort(void);

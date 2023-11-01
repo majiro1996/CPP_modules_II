@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/11/01 17:57:00 by manujime         ###   ########.fr       */
+/*   Updated: 2023/11/01 22:39:02 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,15 +173,16 @@ static std::vector<int> jacobInsertionSequenceVector(int n)
 {
     std::vector<int> sequence;
     int i = 0;
-    while (jacobsthal(i) <= n)
+    int jacob = jacobsthal(i);
+    while (jacob <= n)
     {
-        sequence.push_back(jacobsthal(i));
+        sequence.push_back(jacob);
         i++;
+        jacob = jacobsthal(i);
     }
     return sequence;
 }
 
-//insert the elements of pending into S in the correct position, We can minimize the cost by following an order based on the Jacobsthal Numbers (ignoring values which are greater than the bs we have).
 static void sortFinal(std::vector<int> &S, std::vector<int> &pending)
 {
     std::vector<int>::iterator it = pending.begin();
@@ -229,8 +230,9 @@ void   Pmergeme::sort(std::vector<int> &vec)
 
 //----LIST SORTING ALGORITHM----
 
-static void makePairs(std::list<std::pair<int, int> > &pairs, std::list<int> &lst)
+static  std::list<std::pair<int, int> > makePairs(std::list<int> &lst)
 {
+    std::list<std::pair<int, int> > pairs;
     std::list<int>::iterator it = lst.begin();
     std::list<int>::iterator nextIt = it;
     std::advance(nextIt, 1);
@@ -240,6 +242,7 @@ static void makePairs(std::list<std::pair<int, int> > &pairs, std::list<int> &ls
         std::advance(it, 2);
         std::advance(nextIt, 2);
     }
+    return pairs;
 }
 
 static void sortPair(std::pair<int, int> &pair)
@@ -293,15 +296,16 @@ static std::list<int> jacobInsertionSequence(int n)
 {
     std::list<int> sequence;
     int i = 0;
-    while (jacobsthal(i) <= n)
+    int jacob = jacobsthal(i);
+    while (jacob <= n)
     {
-        sequence.push_back(jacobsthal(i));
+        sequence.push_back(jacob);
         i++;
+        jacob = jacobsthal(i);
     }
     return sequence;
 }
 
-//insert the elements of pending into S in the correct position, We can minimize the cost by following an order based on the Jacobsthal Numbers (ignoring values which are greater than the bs we have).
 static void sortFinal(std::list<int> &S, std::list<int> &pending)
 {
     std::list<int>::iterator it = pending.begin();
@@ -337,7 +341,7 @@ void Pmergeme::sort(std::list<int> &lst)
         lst.pop_back();
         hasOddElement = true;
     }
-    makePairs(pairs, lst);
+    pairs = makePairs(lst);
     std::for_each(pairs.begin(), pairs.end(), sortPair);
     SortPairs(pairs);
     splitPairs(pairs, S, pending);

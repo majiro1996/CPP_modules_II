@@ -6,13 +6,11 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:12:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/11/01 22:39:02 by manujime         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:19:26 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Pmergeme.hpp"
-
-static int jacobsthal(int n);
 
 static bool    isSorted(std::vector<int> &vec)
 {
@@ -169,37 +167,29 @@ static void splitPairs(std::vector<std::vector<int> > &pairs, std::vector<int> &
     }
 }
 
-static std::vector<int> jacobInsertionSequenceVector(int n)
-{
-    std::vector<int> sequence;
-    int i = 0;
-    int jacob = jacobsthal(i);
-    while (jacob <= n)
-    {
-        sequence.push_back(jacob);
-        i++;
-        jacob = jacobsthal(i);
-    }
-    return sequence;
-}
-
 static void sortFinal(std::vector<int> &S, std::vector<int> &pending)
-{
-    std::vector<int>::iterator it = pending.begin();
-    std::vector<int>::iterator ite = pending.end();
-    std::vector<int>::iterator insertion_point;
-    std::vector<int> sequence = jacobInsertionSequenceVector(S.size() );
-
-    while (it != ite)
+{   
+    for (int i = 0; ; i++)
     {
-        insertion_point = std::upper_bound(S.begin(), S.end(), *it);
-        S.insert(insertion_point, *it);
-        it++;
-        if (sequence.size() > 0 && S.size() == (unsigned int)sequence.front())
+        if (jacobsthal_diff[i] >= pending.size())
+            break;
+        std::vector<int>::iterator it = pending.begin();
+        std::advance(it, jacobsthal_diff[i]);
+        while (1)
         {
-            sequence.erase(sequence.begin());
-            ite = pending.end();
+            std::vector<int>::iterator insertion_point = std::upper_bound(S.begin(), S.end(), *it);
+            S.insert(insertion_point, *it);
+            it = pending.erase(it);
+            if (it == pending.begin())
+                break;
+            std::advance(it, -1);
         }
+    }
+
+    while (pending.size() > 0)
+    {
+        S.insert(std::upper_bound(S.begin(), S.end(), pending.front()), pending.front());
+        pending.erase(pending.begin());
     }
 }
 
@@ -283,46 +273,30 @@ static void splitPairs(std::list<std::pair<int, int> > &pairs, std::list<int> &S
     }
 }
 
-static int jacobsthal(int n)
-{
-    if (n == 0)
-        return 0;
-    if (n == 1)
-        return 1;
-    return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
-}
-
-static std::list<int> jacobInsertionSequence(int n)
-{
-    std::list<int> sequence;
-    int i = 0;
-    int jacob = jacobsthal(i);
-    while (jacob <= n)
-    {
-        sequence.push_back(jacob);
-        i++;
-        jacob = jacobsthal(i);
-    }
-    return sequence;
-}
-
 static void sortFinal(std::list<int> &S, std::list<int> &pending)
 {
-    std::list<int>::iterator it = pending.begin();
-    std::list<int>::iterator ite = pending.end();
-    std::list<int>::iterator insertion_point;
-    std::list<int> sequence = jacobInsertionSequence(S.size() );
-
-    while (it != ite)
+   
+    for (int i = 0; ; i++)
     {
-        insertion_point = std::upper_bound(S.begin(), S.end(), *it);
-        S.insert(insertion_point, *it);
-        it++;
-        if (sequence.size() > 0 && S.size() == (unsigned int)sequence.front())
+        if (jacobsthal_diff[i] >= pending.size())
+            break;
+        std::list<int>::iterator it = pending.begin();
+        std::advance(it, jacobsthal_diff[i]);
+        while (1)
         {
-            sequence.pop_front();
-            ite = pending.end();
+            std::list<int>::iterator insertion_point = std::upper_bound(S.begin(), S.end(), *it);
+            S.insert(insertion_point, *it);
+            it = pending.erase(it);
+            if (it == pending.begin())
+                break;
+            std::advance(it, -1);
         }
+    }
+
+    while (pending.size() > 0)
+    {
+        S.insert(std::upper_bound(S.begin(), S.end(), pending.front()), pending.front());
+        pending.pop_front();
     }
 }
 
@@ -356,12 +330,13 @@ void Pmergeme::sort(std::list<int> &lst)
 void       Pmergeme::sort(void)
 {
     long long int   size = this->_vec.size();
+    std::list<int>  control = this->_lst;
 
     std::cout << "Before: ";
     this->printVec();
     
     _timeVec = clock();
-    std::cout << "Vector sorted: ";
+    std::cout << std::endl << "Vector sorted: ";
     this->sort(this->_vec);
     _timeVec = clock() - _timeVec;
     this->printVec();
@@ -369,10 +344,21 @@ void       Pmergeme::sort(void)
     _timeLst = clock();
     this->sort(this->_lst);
     _timeLst = clock() - _timeLst;
-    std::cout << "List sorted: ";
+    std::cout << std::endl << "List sorted: ";
     this->printLst();
 
-    std::cout << "Vector time: " << _timeVec / (double)CLOCKS_PER_SEC *1e3 << " milliseconds for a size of " <<  size <<std::endl;
+    control.sort();
+    std::cout << std::endl << "Control: ";
+    std::list<int>::iterator    it = control.begin();
+    std::list<int>::iterator    ite = control.end();
+    while (it != ite)
+    {
+        std::cout << *it << " ";
+        it++;
+    }
+    std::cout << std::endl;
+
+    std::cout << std::endl << "Vector time: " << _timeVec / (double)CLOCKS_PER_SEC *1e3 << " milliseconds for a size of " <<  size <<std::endl;
     std::cout << "List time: " << _timeLst / (double)CLOCKS_PER_SEC *1e3 << " milliseconds for a size of " <<  size <<std::endl;
 
     if (!isSorted(this->_vec))

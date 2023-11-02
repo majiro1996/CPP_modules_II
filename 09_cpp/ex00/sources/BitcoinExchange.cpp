@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:24:41 by manujime          #+#    #+#             */
-/*   Updated: 2023/10/25 14:49:57 by manujime         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:43:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ bool	dateCheck(std::string date)
 	int month = myStoi(date.substr(5, 2));
 	int day = myStoi(date.substr(8, 2));
 	
-	if (/*date.length() != 9 || date.find("-") != 2 || */year < 2000
+	if (date.length() != 9 || date.find("-") != 2 || year < 2000
 		|| year > 2023 || month < 1 || month > 12 || day < 1 || day > 31)
 		return (false);
 	return (true);
